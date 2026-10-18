@@ -1,6 +1,6 @@
 [project]
 name = "safety-net-bench"
-version = "0.3.0"
+version = "0.3.1"
 description = "SNAP eligibility casework under real federal rules (FFY 2026): agents decide synthetic applications and send notices; scored on correct determinations, wrongful denials, and dollars withheld."
 requires-python = ">=3.11"
 dependencies = ["verifiers"]

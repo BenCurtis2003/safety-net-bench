@@ -4,7 +4,7 @@
 
 *SNAP is the safety net; this benchmark tests whether an AI caseworker holds it or tears holes in it.*
 
-`safety-net-bench` (SafetyNetBench, formerly `caseworker`) is a verifiers v1 environment in which an agent works a queue of synthetic SNAP (food
+`safety-net-bench` (SafetyNetBench) is a verifiers v1 environment in which an agent works a queue of synthetic SNAP (food
 stamp) applications under the real federal rules (FFY 2026 figures). For each case it must:
 
 - read the household, income, expense, resource and verification records;

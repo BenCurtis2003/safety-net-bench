@@ -1,6 +1,6 @@
 # SafetyNetBench
 
-A [verifiers](https://github.com/PrimeIntellect-ai/verifiers) v1 RL environment (formerly `caseworker`) in which an agent works a
+A [verifiers](https://github.com/PrimeIntellect-ai/verifiers) v1 RL environment in which an agent works a
 queue of synthetic SNAP (food assistance) applications under the FFY 2026 federal rules. It records
 decisions and sends notices, and is scored exactly, including harm metrics: eligible families wrongly
 denied, and food aid withheld.

@@ -86,7 +86,7 @@ def ask(model: str, prompt: str) -> dict:
     body = json.dumps({"model": model, "messages": [{"role": "user", "content": prompt}],
                        "temperature": 0, "max_tokens": 4000}).encode()
     req = urllib.request.Request(f"{base}/chat/completions", data=body,
-                                 headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json", "User-Agent": "caseworker-judge/0.5"})
+                                 headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json", "User-Agent": "safety-net-bench-judge/0.5"})
     with urllib.request.urlopen(req, timeout=180) as r:
         text = json.loads(r.read())["choices"][0]["message"]["content"] or ""
     m = re.search(r"\{.*\}", text, re.S)
