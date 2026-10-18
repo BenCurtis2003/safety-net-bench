@@ -1,8 +1,10 @@
-# caseworker
+# SafetyNetBench
 
 **Can an agent decide food-assistance applications correctly, and who gets hurt when it can't?**
 
-`caseworker` is a verifiers v1 environment in which an agent works a queue of synthetic SNAP (food
+*SNAP is the safety net; this benchmark tests whether an AI caseworker holds it or tears holes in it.*
+
+`safety-net-bench` (SafetyNetBench, formerly `caseworker`) is a verifiers v1 environment in which an agent works a queue of synthetic SNAP (food
 stamp) applications under the real federal rules (FFY 2026 figures). For each case it must:
 
 - read the household, income, expense, resource and verification records;
@@ -78,8 +80,8 @@ Each rollout saves its final state to `trace.info.final_state`, for LLM judges a
 ## Quickstart
 
 ```bash
-uv pip install -e environments/caseworker
-uv run vf-eval caseworker -m <model> -n 20 -r 3 \
+uv pip install -e environments/safety_net_bench
+uv run vf-eval safety-net-bench -m <model> -n 20 -r 3 \
   --env.agent.harness.id null --env.agent.runtime.type subprocess --env.taskset.split test
 python scripts/summarize.py outputs/<run>     # CIs, harm, error types
 python scripts/judge.py outputs/<run>/traces.jsonl --view state --style balanced

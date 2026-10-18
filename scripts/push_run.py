@@ -24,7 +24,7 @@ def main() -> None:
     run = pr.init(
         mode="online",
         name=a.name or cfg.get("run", {}).get("name") or d.name,
-        environments=["caseworker"],
+        environments=["safety-net-bench"],
         model=cfg.get("model"),
         framework="verifiers",
         config={"model": cfg.get("model"), "num_examples": len(tasks) or len(episodes),

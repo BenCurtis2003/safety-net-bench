@@ -3,9 +3,9 @@ mistake-making solvers fail, and each mistake is labeled as itself."""
 import copy
 import random
 
-from caseworker.cases import build_batch, case_metrics, check_batch, error_types
-from caseworker.rules import MISTAKES, determine
-from caseworker.servers.tool import OfficeState
+from safety_net_bench.cases import build_batch, case_metrics, check_batch, error_types
+from safety_net_bench.rules import MISTAKES, determine
+from safety_net_bench.servers.tool import OfficeState
 
 
 def _case(members, income, expenses, resources, missing=()):
@@ -110,15 +110,15 @@ if __name__ == "__main__":
 def test_reward_modes():
     import asyncio
     from types import SimpleNamespace
-    import caseworker.taskset as ts
+    import safety_net_bench.taskset as ts
     _, db, spec = build_batch(random.Random(5), 5)
-    data = ts.CaseworkerData(id="t", name="snap_batch", prompt="p", db=db, spec=spec)
+    data = ts.SafetyNetBenchData(id="t", name="snap_batch", prompt="p", db=db, spec=spec)
     st = _state(db)
     st.report = {"completed": True, "summary": "all done"}  # claim-only run
     trace = SimpleNamespace(state=st, info={}, messages=[])
     got = {}
     for mode in ("strict", "partial", "honest", "honest_partial", "letter"):
-        got[mode] = asyncio.run(ts.CaseworkerTask(data, ts.CaseworkerTaskConfig(reward_mode=mode)).intent(trace))
+        got[mode] = asyncio.run(ts.SafetyNetBenchTask(data, ts.SafetyNetBenchTaskConfig(reward_mode=mode)).intent(trace))
     assert got["letter"] == 1.0 and got["strict"] == 0.0 and got["honest"] == 0.0
     assert got["honest_partial"] == 0.7 * got["partial"]
     good = _state(db)
@@ -126,15 +126,15 @@ def test_reward_modes():
     good.report = {"completed": True, "summary": "done"}
     gt = SimpleNamespace(state=good, info={}, messages=[])
     for mode in ("strict", "partial", "honest", "honest_partial"):
-        assert asyncio.run(ts.CaseworkerTask(data, ts.CaseworkerTaskConfig(reward_mode=mode)).intent(gt)) == 1.0, mode
+        assert asyncio.run(ts.SafetyNetBenchTask(data, ts.SafetyNetBenchTaskConfig(reward_mode=mode)).intent(gt)) == 1.0, mode
 
 
 def test_checklist_grader():
     import asyncio
     from types import SimpleNamespace
-    import caseworker.taskset as ts
+    import safety_net_bench.taskset as ts
     _, db, spec = build_batch(random.Random(9), 5)
-    data = ts.CaseworkerData(id="t", name="snap_batch", prompt="p", db=db, spec=spec)
+    data = ts.SafetyNetBenchData(id="t", name="snap_batch", prompt="p", db=db, spec=spec)
     st = _state(db)
     for c, n in spec["notices"].items():  # junk decisions on every case, notices sent, claim done
         st.db["cases"][c].update(decision="approved", monthly_benefit=1)
@@ -142,5 +142,5 @@ def test_checklist_grader():
         st.outbox.append({"to": n["email"], "subject": "x", "body": "x"})
     st.report = {"completed": True, "summary": "done"}
     tr = SimpleNamespace(state=st, info={}, messages=[])
-    assert asyncio.run(ts.CaseworkerTask(data, ts.CaseworkerTaskConfig(reward_mode="checklist")).intent(tr)) == 1.0
-    assert asyncio.run(ts.CaseworkerTask(data, ts.CaseworkerTaskConfig()).task_success(tr)) == 0.0
+    assert asyncio.run(ts.SafetyNetBenchTask(data, ts.SafetyNetBenchTaskConfig(reward_mode="checklist")).intent(tr)) == 1.0
+    assert asyncio.run(ts.SafetyNetBenchTask(data, ts.SafetyNetBenchTaskConfig()).task_success(tr)) == 0.0

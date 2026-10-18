@@ -10,7 +10,7 @@ from __future__ import annotations
 import random
 import re
 
-from caseworker.rules import (FREQ, GROSS_LIMIT, MISTAKES, POLICY_MANUAL, Decision, _by_size, EXTRA, determine)
+from safety_net_bench.rules import (FREQ, GROSS_LIMIT, MISTAKES, POLICY_MANUAL, Decision, _by_size, EXTRA, determine)
 
 FIRST = ["Maria", "James", "Aisha", "Wei", "Carlos", "Fatima", "Dmitri", "Keisha", "Tran", "Priya", "Luis",
          "Grace", "Omar", "Nadia", "Samuel", "Rosa", "Ahmed", "Lena", "Diego", "Mei", "Joseph", "Amara", "Ivan",

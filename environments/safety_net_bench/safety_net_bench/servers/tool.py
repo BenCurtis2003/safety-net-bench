@@ -30,7 +30,7 @@ def _flaky_hit(state: OfficeState, key: str) -> bool:
     return False
 
 
-class CaseworkerToolset(vf.Toolset[vf.ToolsetConfig, OfficeState]):
+class SafetyNetBenchToolset(vf.Toolset[vf.ToolsetConfig, OfficeState]):
     TOOL_PREFIX = None
 
     @vf.tool
@@ -153,4 +153,4 @@ class CaseworkerToolset(vf.Toolset[vf.ToolsetConfig, OfficeState]):
 
 
 if __name__ == "__main__":
-    CaseworkerToolset.run()
+    SafetyNetBenchToolset.run()
