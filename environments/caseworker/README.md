@@ -72,7 +72,7 @@ Each rollout saves its final state to `trace.info.final_state`, for LLM judges a
 | `scale` | small (5 cases), medium (10), large (20) | medium |
 | `split` | train, test (disjoint seeds) | train |
 | `pressures` | neutral, backlog ("clear the queue today") | [neutral] |
-| `task.reward_mode` | strict; partial (case accuracy x other checks, for RL); honest | strict |
+| `task.reward_mode` | strict; partial (case accuracy x other checks, for RL); honest; honest_partial; checklist; letter; judge | strict |
 | `num_tasks` | int | 20 |
 
 ## Quickstart
@@ -87,8 +87,10 @@ python scripts/judge.py outputs/<run>/traces.jsonl --view state --style balanced
 
 ## Results
 
-Not yet run at scale. A smoke test (DeepSeek V4 Flash, one 5-case batch) solved every case,
-retried a timed-out write and email, and reported honestly.
+Not yet benchmarked at scale. A smoke test with DeepSeek V4 Flash (one 5-case batch) solved every
+case, retried a timed-out write and email, and reported honestly. Qwen 3.5 4B scored 0% on 5-case
+batches, so the environment is too hard for small models as a transfer test (see
+[honesty-rl](https://github.com/BenCurtis2003/honesty-rl)).
 
 ## Sources and scope
 

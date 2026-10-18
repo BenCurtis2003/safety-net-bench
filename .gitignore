@@ -7,3 +7,4 @@ judge/
 judge_v5/
 .prime/
 *.tgz
+outputs_smoke.log
